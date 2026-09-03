@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تماس با ما | رویین‌تن</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="header-top">
+    <div class="header-top-inner">
+      <span><i class="fas fa-map-marker-alt" style="margin-left:6px;color:#E85D04"></i> تهران، بازار آهن شادآباد</span>
+      <a href="tel:09121456310"><i class="fas fa-phone" style="margin-left:6px;color:#E85D04"></i> ۰۹۱۲۱۴۵۶۳۱۰</a>
+    </div>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">RT</div><span data-i18n="company">رویین‌تن</span></a>
+      <nav class="nav" id="mainNav">
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="about.html" data-i18n="nav_about">درباره ما</a>
+        <a href="contact.html" class="active" data-i18n="nav_contact">تماس با ما</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="fa">FA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+        <a href="tel:09121456310" class="phone-btn"><i class="fas fa-phone"></i> <span>۰۹۱۲۱۴۵۶۳۱۰</span></a>
+        <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('show')"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-i18n="contact_title">تماس با ما</h1>
+    <p data-i18n="contact_sub">آماده پاسخگویی به استعلام‌های شما</p>
+  </section>
+
+  <section class="section">
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <h3 data-i18n="footer_contact">اطلاعات تماس</h3>
+        <div class="info-row">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong data-i18n="contact_address">آدرس</strong><br>
+            <span data-i18n="contact_address_val">تهران، بازار آهن شادآباد، بلوار طاووس، مجتمع ۱۷ شهریور، بلوک A، طبقه اول، پلاک ۲۲۸</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <i class="fas fa-phone"></i>
+          <div>
+            <strong data-i18n="contact_phone">تلفن / واتساپ</strong><br>
+            <a href="tel:09121456310" style="color:#E85D04;font-weight:700;font-size:1.15rem">۰۹۱۲۱۴۵۶۳۱۰</a><br>
+            <a href="https://wa.me/989121456310" target="_blank" style="color:#25D366;font-size:0.9rem"><i class="fab fa-whatsapp"></i> واتساپ</a>
+          </div>
+        </div>
+        <div class="info-row">
+          <i class="fas fa-clock"></i>
+          <div><strong>ساعات کاری</strong><br>شنبه تا پنج‌شنبه ۹:۰۰ – ۱۸:۰۰</div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 data-i18n="contact_form_title">فرم استعلام</h3>
+        <form onsubmit="event.preventDefault(); alert('استعلام شما ثبت شد. به زودی تماس میگیریم.');">
+          <div class="form-group"><label data-i18n="c_name">نام و نام خانوادگی</label><input type="text" required></div>
+          <div class="form-group"><label data-i18n="c_phone">شماره تماس</label><input type="tel" required></div>
+          <div class="form-group">
+            <label data-i18n="c_product">محصول مورد نظر</label>
+            <select>
+              <option>میلگرد</option><option>تیرآهن</option><option>ورق سیاه</option><option>ورق رنگی</option>
+              <option>ورق گالوانیزه</option><option>ورق روغنی</option><option>ورق استیل</option>
+              <option>پروفیل</option><option>نبشی</option><option>ناودانی</option><option>لوله</option>
+              <option>سیم مفتول</option><option>پیچ، مهره و واشر</option>
+            </select>
+          </div>
+          <div class="form-group"><label data-i18n="c_msg">توضیحات</label><textarea rows="4"></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="c_send">ارسال استعلام</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h4 data-i18n="company">رویین‌تن</h4><p data-i18n="footer_desc">تأمین و فروش تخصصی آهن‌آلات</p></div>
+      <div>
+        <h4 data-i18n="footer_quick">دسترسی سریع</h4>
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="contact.html" data-i18n="nav_contact">تماس با ما</a>
+      </div>
+      <div><h4 data-i18n="footer_contact">اطلاعات تماس</h4><p>۰۹۱۲۱۴۵۶۳۱۰</p></div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer_rights">© تمامی حقوق برای رویین‌تن محفوظ است.</div>
+  </footer>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

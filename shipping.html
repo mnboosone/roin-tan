@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محاسبه هزینه حمل | رویین‌تن</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="header-top">
+    <div class="header-top-inner">
+      <span><i class="fas fa-map-marker-alt" style="margin-left:6px;color:#E85D04"></i> تهران، بازار آهن شادآباد</span>
+      <a href="tel:09121456310"><i class="fas fa-phone" style="margin-left:6px;color:#E85D04"></i> ۰۹۱۲۱۴۵۶۳۱۰</a>
+    </div>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">RT</div><span data-i18n="company">رویین‌تن</span></a>
+      <nav class="nav" id="mainNav">
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" class="active" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="about.html" data-i18n="nav_about">درباره ما</a>
+        <a href="contact.html" data-i18n="nav_contact">تماس با ما</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="fa">FA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+        <a href="tel:09121456310" class="phone-btn"><i class="fas fa-phone"></i> <span>۰۹۱۲۱۴۵۶۳۱۰</span></a>
+        <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('show')"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-i18n="shipping_title">محاسبه هزینه حمل</h1>
+    <p data-i18n="shipping_sub">هزینه حمل بار از مبدأ بنگاه تهران</p>
+  </section>
+
+  <section class="section">
+    <div class="shipping-layout">
+      <div class="shipping-map">
+        <img src="images/b9b6389d-7112-47a5-a8e2-38dda2704ef2.webp" alt="نقشه ایران – هزینه حمل" onerror="this.alt='نقشه ایران'; this.style.minHeight='280px'; this.style.background='#e2e8f0'">
+        <p style="margin-top:12px;font-size:0.9rem;color:#64748b" data-i18n="shipping_desc">با انتخاب مقصد، هزینه تقریبی حمل را مشاهده کنید.</p>
+      </div>
+      <div class="shipping-form">
+        <div class="form-group" style="margin-bottom:16px">
+          <label data-i18n="ship_from">مبدأ</label>
+          <input type="text" value="تهران – بازار آهن شادآباد" readonly style="background:#f1f5f9;font-weight:600">
+        </div>
+        <div class="form-group" style="margin-bottom:20px">
+          <label data-i18n="ship_to">مقصد</label>
+          <select id="ship-dest">
+            <option value="" data-i18n="ship_select">انتخاب کنید</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="ship-calc-btn" style="width:100%" data-i18n="ship_calc">محاسبه</button>
+
+        <div class="shipping-result" id="ship-result">
+          <h3>هزینه حمل به <span id="ship-city-name"></span></h3>
+          <div class="price-row">
+            <span data-i18n="ship_single">تک (۱۰ تن)</span>
+            <span><span id="ship-single-val">۰</span> <span data-i18n="ship_toman">تومان</span></span>
+          </div>
+          <div class="price-row">
+            <span data-i18n="ship_double">جفت (۱۵ تن)</span>
+            <span><span id="ship-double-val">۰</span> <span data-i18n="ship_toman">تومان</span></span>
+          </div>
+          <div class="price-row">
+            <span data-i18n="ship_trailer">تریلی (۲۲ تن)</span>
+            <span><span id="ship-trailer-val">۰</span> <span data-i18n="ship_toman">تومان</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:40px">
+      <table>
+        <thead>
+          <tr>
+            <th>مقصد</th>
+            <th>تک (۱۰ تن)</th>
+            <th>جفت (۱۵ تن)</th>
+            <th>تریلی (۲۲ تن)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>اراک</td><td>۱۱,۰۰۰,۰۰۰</td><td>۱۵,۰۰۰,۰۰۰</td><td>۱۷,۰۰۰,۰۰۰</td></tr>
+          <tr><td>اردبیل</td><td>۱۰,۰۰۰,۰۰۰</td><td>۱۷,۰۰۰,۰۰۰</td><td>۲۷,۰۰۰,۰۰۰</td></tr>
+          <tr><td>ارومیه</td><td>۱۵,۰۰۰,۰۰۰</td><td>۱۹,۰۰۰,۰۰۰</td><td>۲۶,۰۰۰,۰۰۰</td></tr>
+          <tr><td>اصفهان</td><td>۱۱,۰۰۰,۰۰۰</td><td>۱۳,۰۰۰,۰۰۰</td><td>۱۶,۰۰۰,۰۰۰</td></tr>
+          <tr><td>اهواز</td><td>۲۱,۰۰۰,۰۰۰</td><td>۲۵,۰۰۰,۰۰۰</td><td>۲۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>ایلام</td><td>۱۳,۰۰۰,۰۰۰</td><td>۲۰,۰۰۰,۰۰۰</td><td>۳۰,۰۰۰,۰۰۰</td></tr>
+          <tr><td>بجنورد</td><td>۲۲,۰۰۰,۰۰۰</td><td>۲۹,۰۰۰,۰۰۰</td><td>۳۹,۰۰۰,۰۰۰</td></tr>
+          <tr><td>بندرعباس</td><td>۲۶,۰۰۰,۰۰۰</td><td>۲۹,۰۰۰,۰۰۰</td><td>۳۵,۰۰۰,۰۰۰</td></tr>
+          <tr><td>بوشهر</td><td>۱۴,۰۰۰,۰۰۰</td><td>۲۲,۰۰۰,۰۰۰</td><td>۲۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>بیرجند</td><td>۲۱,۰۰۰,۰۰۰</td><td>۲۷,۰۰۰,۰۰۰</td><td>۳۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>تبریز</td><td>۱۷,۰۰۰,۰۰۰</td><td>۲۴,۰۰۰,۰۰۰</td><td>۲۹,۰۰۰,۰۰۰</td></tr>
+          <tr><td>تهران</td><td>۶,۰۰۰,۰۰۰</td><td>۷,۰۰۰,۰۰۰</td><td>۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>خرم‌آباد</td><td>۱۰,۰۰۰,۰۰۰</td><td>۱۶,۰۰۰,۰۰۰</td><td>۱۹,۰۰۰,۰۰۰</td></tr>
+          <tr><td>رشت</td><td>۱۳,۰۰۰,۰۰۰</td><td>۱۷,۵۰۰,۰۰۰</td><td>۲۵,۰۰۰,۰۰۰</td></tr>
+          <tr><td>زاهدان</td><td>۳۰,۰۰۰,۰۰۰</td><td>۳۸,۰۰۰,۰۰۰</td><td>۵۰,۰۰۰,۰۰۰</td></tr>
+          <tr><td>زنجان</td><td>۱۱,۰۰۰,۰۰۰</td><td>۱۹,۰۰۰,۰۰۰</td><td>۲۴,۰۰۰,۰۰۰</td></tr>
+          <tr><td>سمنان</td><td>۱۱,۰۰۰,۰۰۰</td><td>۱۴,۵۰۰,۰۰۰</td><td>۱۷,۰۰۰,۰۰۰</td></tr>
+          <tr><td>سنندج</td><td>۱۱,۰۰۰,۰۰۰</td><td>۱۶,۰۰۰,۰۰۰</td><td>۲۰,۰۰۰,۰۰۰</td></tr>
+          <tr><td>شهرکرد</td><td>۹,۰۰۰,۰۰۰</td><td>۱۶,۰۰۰,۰۰۰</td><td>۲۰,۰۰۰,۰۰۰</td></tr>
+          <tr><td>شیراز</td><td>۱۴,۰۰۰,۰۰۰</td><td>۲۰,۰۰۰,۰۰۰</td><td>۲۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>قزوین</td><td>۱۰,۰۰۰,۰۰۰</td><td>۱۲,۰۰۰,۰۰۰</td><td>۱۶,۰۰۰,۰۰۰</td></tr>
+          <tr><td>قم</td><td>۱۰,۰۰۰,۰۰۰</td><td>۱۲,۰۰۰,۰۰۰</td><td>۱۳,۰۰۰,۰۰۰</td></tr>
+          <tr><td>کرج</td><td>۵,۰۰۰,۰۰۰</td><td>۷,۰۰۰,۰۰۰</td><td>۸,۰۰۰,۰۰۰</td></tr>
+          <tr><td>کرمان</td><td>۲۲,۰۰۰,۰۰۰</td><td>۲۸,۰۰۰,۰۰۰</td><td>۳۲,۰۰۰,۰۰۰</td></tr>
+          <tr><td>کرمانشاه</td><td>۱۳,۰۰۰,۰۰۰</td><td>۱۸,۰۰۰,۰۰۰</td><td>۲۷,۰۰۰,۰۰۰</td></tr>
+          <tr><td>گرگان</td><td>۱۹,۰۰۰,۰۰۰</td><td>۲۶,۰۰۰,۰۰۰</td><td>۳۳,۰۰۰,۰۰۰</td></tr>
+          <tr><td>مشهد</td><td>۲۲,۰۰۰,۰۰۰</td><td>۲۸,۰۰۰,۰۰۰</td><td>۳۳,۰۰۰,۰۰۰</td></tr>
+          <tr><td>همدان</td><td>۱۰,۰۰۰,۰۰۰</td><td>۱۵,۵۰۰,۰۰۰</td><td>۱۹,۰۰۰,۰۰۰</td></tr>
+          <tr><td>یزد</td><td>۱۴,۰۰۰,۰۰۰</td><td>۲۰,۰۰۰,۰۰۰</td><td>۲۵,۰۰۰,۰۰۰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:0.85rem;color:#718096">مبالغ به تومان – مبدأ: تهران، بازار آهن شادآباد | برای هماهنگی نهایی با ما تماس بگیرید.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h4 data-i18n="company">رویین‌تن</h4><p data-i18n="footer_desc">تأمین و فروش تخصصی آهن‌آلات</p></div>
+      <div>
+        <h4 data-i18n="footer_quick">دسترسی سریع</h4>
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="contact.html" data-i18n="nav_contact">تماس با ما</a>
+      </div>
+      <div><h4 data-i18n="footer_contact">اطلاعات تماس</h4><p>۰۹۱۲۱۴۵۶۳۱۰</p></div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer_rights">© تمامی حقوق برای رویین‌تن محفوظ است.</div>
+  </footer>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جدول وزن آهن‌آلات | رویین‌تن</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="header-top">
+    <div class="header-top-inner">
+      <span><i class="fas fa-map-marker-alt" style="margin-left:6px;color:#E85D04"></i> تهران، بازار آهن شادآباد</span>
+      <a href="tel:09121456310"><i class="fas fa-phone" style="margin-left:6px;color:#E85D04"></i> ۰۹۱۲۱۴۵۶۳۱۰</a>
+    </div>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">RT</div><span data-i18n="company">رویین‌تن</span></a>
+      <nav class="nav" id="mainNav">
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" class="active" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="about.html" data-i18n="nav_about">درباره ما</a>
+        <a href="contact.html" data-i18n="nav_contact">تماس با ما</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="fa">FA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+        <a href="tel:09121456310" class="phone-btn"><i class="fas fa-phone"></i> <span>۰۹۱۲۱۴۵۶۳۱۰</span></a>
+        <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('show')"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-i18n="weight_title">جدول وزن آهن‌آلات</h1>
+    <p data-i18n="weight_sub">محاسبه وزن مقاطع فولادی</p>
+  </section>
+
+  <section class="section">
+    <div class="calc-box">
+      <h2 data-i18n="weight_calc">محاسبه وزن پروفیل</h2>
+      <div style="text-align:center;margin-bottom:20px">
+        <img src="images/سطح مقطع پروفیل مربعی-5Al3fq.jpg" alt="سطح مقطع پروفیل" style="max-height:160px;margin:0 auto;border-radius:8px" onerror="this.style.display='none'">
+      </div>
+      <div class="calc-grid">
+        <div class="form-group">
+          <label data-i18n="w_thickness">ضخامت (میلی‌متر)</label>
+          <input type="number" id="w-thk" placeholder="مثال: ۱" min="0.5" step="0.1">
+        </div>
+        <div class="form-group">
+          <label data-i18n="w_length">طول مقطع (میلی‌متر)</label>
+          <input type="number" id="w-len" placeholder="مثال: ۴۰" min="1">
+        </div>
+        <div class="form-group">
+          <label data-i18n="w_width">عرض مقطع (میلی‌متر)</label>
+          <input type="number" id="w-wid" placeholder="مثال: ۸۰" min="1">
+        </div>
+        <div class="form-group">
+          <label data-i18n="w_qty">تعداد (متر)</label>
+          <input type="number" id="w-qty" value="1" min="0.1" step="0.1">
+        </div>
+      </div>
+      <button class="btn btn-primary" id="w-calc-btn" data-i18n="w_calc_btn">محاسبه وزن</button>
+      <div class="calc-result">
+        <div>
+          <div class="label" data-i18n="w_unit">وزن تقریبی واحد</div>
+          <div class="value"><span id="w-unit-val">۰</span> <span data-i18n="w_kg">کیلوگرم</span>/m</div>
+        </div>
+        <div>
+          <div class="label" data-i18n="w_total">وزن تقریبی کل</div>
+          <div class="value"><span id="w-total-val">۰</span> <span data-i18n="w_kg">کیلوگرم</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('tab-profile', this)" data-i18n="tab_profile">وزن پروفیل</button>
+      <button class="tab-btn" onclick="showTab('tab-rebar', this)" data-i18n="tab_rebar">وزن میلگرد آجدار</button>
+      <button class="tab-btn" onclick="showTab('tab-beam', this)" data-i18n="tab_beam">وزن تیرآهن</button>
+      <button class="tab-btn" onclick="showTab('tab-angle', this)" data-i18n="tab_angle">وزن نبشی</button>
+      <button class="tab-btn" onclick="showTab('tab-channel', this)" data-i18n="tab_channel">وزن ناودانی</button>
+      <button class="tab-btn" onclick="showTab('tab-pipe', this)" data-i18n="tab_pipe">وزن لوله</button>
+    </div>
+
+    <div id="tab-profile" class="tab-panel active">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="dim">ابعاد</th>
+              <th data-i18n="th2">ضخامت ۲</th>
+              <th data-i18n="th25">ضخامت ۲٫۵</th>
+              <th data-i18n="th3">ضخامت ۳</th>
+              <th data-i18n="th4">ضخامت ۴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>۲۰×۱۰</td><td>۵</td><td>۷</td><td>۸٫۵</td><td>۱۱٫۵</td></tr>
+            <tr><td>۲۵×۱۰</td><td>۶</td><td>۸٫۳</td><td>۱۰</td><td>۱۳٫۲</td></tr>
+            <tr><td>۳۰×۱۰</td><td>۷</td><td>۹٫۵</td><td>۱۱٫۳</td><td>۱۵</td></tr>
+            <tr><td>۲۵×۱۵</td><td>۷</td><td>۹٫۴</td><td>۱۱٫۳</td><td>۱۵</td></tr>
+            <tr><td>۲۰×۲۰</td><td>۷</td><td>۹٫۴</td><td>۱۱٫۳</td><td>۱۵</td></tr>
+            <tr><td>۲۵×۲۵</td><td>۹</td><td>۱۲</td><td>۱۴٫۵</td><td>۱۹</td></tr>
+            <tr><td>۳۰×۲۰</td><td>۱۰</td><td>۱۴</td><td>۱۷</td><td>۲۲٫۶</td></tr>
+            <tr><td>۳۰×۳۰</td><td>۱۰</td><td>۱۴</td><td>۱۷</td><td>۲۲٫۶</td></tr>
+            <tr><td>۴۰×۴۰</td><td>۱۵</td><td>۱۹</td><td>۲۳</td><td>۳۰</td></tr>
+            <tr><td>۵۰×۵۰</td><td>۱۹</td><td>۲۴</td><td>۲۸</td><td>۳۷٫۷</td></tr>
+            <tr><td>۶۰×۶۰</td><td>۲۳</td><td>۲۹</td><td>۳۴</td><td>۴۵٫۳</td></tr>
+            <tr><td>۸۰×۸۰</td><td>۳۰٫۸</td><td>۳۸٫۵</td><td>۴۶٫۲</td><td>۶۱٫۶</td></tr>
+            <tr><td>۱۰۰×۱۰۰</td><td>۳۸٫۴</td><td>۴۸</td><td>۵۷٫۶</td><td>۷۶٫۸</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:0.85rem;color:#718096;text-align:center">وزن تقریبی بر حسب کیلوگرم در هر متر طول</p>
+    </div>
+
+    <div id="tab-rebar" class="tab-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>سایز (mm)</th><th>وزن تقریبی (kg/m)</th></tr></thead>
+          <tbody>
+            <tr><td>۸</td><td>۰٫۳۹۵</td></tr>
+            <tr><td>۱۰</td><td>۰٫۶۱۷</td></tr>
+            <tr><td>۱۲</td><td>۰٫۸۸۸</td></tr>
+            <tr><td>۱۴</td><td>۱٫۲۱</td></tr>
+            <tr><td>۱۶</td><td>۱٫۵۸</td></tr>
+            <tr><td>۱۸</td><td>۲٫۰۰</td></tr>
+            <tr><td>۲۰</td><td>۲٫۴۷</td></tr>
+            <tr><td>۲۲</td><td>۲٫۹۸</td></tr>
+            <tr><td>۲۵</td><td>۳٫۸۵</td></tr>
+            <tr><td>۲۸</td><td>۴٫۸۳</td></tr>
+            <tr><td>۳۲</td><td>۶٫۳۱</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-beam" class="tab-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>سایز</th><th>وزن تقریبی (kg/m)</th></tr></thead>
+          <tbody>
+            <tr><td>۱۲</td><td>۱۱٫۱</td></tr>
+            <tr><td>۱۴</td><td>۱۴٫۴</td></tr>
+            <tr><td>۱۶</td><td>۱۷٫۹</td></tr>
+            <tr><td>۱۸</td><td>۲۱٫۹</td></tr>
+            <tr><td>۲۰</td><td>۲۶٫۳</td></tr>
+            <tr><td>۲۲</td><td>۳۱٫۱</td></tr>
+            <tr><td>۲۴</td><td>۳۶٫۲</td></tr>
+            <tr><td>۲۷</td><td>۴۲٫۸</td></tr>
+            <tr><td>۳۰</td><td>۴۹٫۸</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-angle" class="tab-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>سایز (mm)</th><th>ضخامت</th><th>وزن (kg/m)</th></tr></thead>
+          <tbody>
+            <tr><td>۳۰×۳۰</td><td>۳</td><td>۱٫۳۶</td></tr>
+            <tr><td>۴۰×۴۰</td><td>۴</td><td>۲٫۴۲</td></tr>
+            <tr><td>۵۰×۵۰</td><td>۵</td><td>۳٫۷۷</td></tr>
+            <tr><td>۶۰×۶۰</td><td>۶</td><td>۵٫۴۲</td></tr>
+            <tr><td>۸۰×۸۰</td><td>۸</td><td>۹٫۶۳</td></tr>
+            <tr><td>۱۰۰×۱۰۰</td><td>۱۰</td><td>۱۵٫۱</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-channel" class="tab-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>سایز</th><th>وزن تقریبی (kg/m)</th></tr></thead>
+          <tbody>
+            <tr><td>۸</td><td>۸٫۰۴</td></tr>
+            <tr><td>۱۰</td><td>۱۰٫۰</td></tr>
+            <tr><td>۱۲</td><td>۱۲٫۱</td></tr>
+            <tr><td>۱۴</td><td>۱۴٫۵</td></tr>
+            <tr><td>۱۶</td><td>۱۷٫۲</td></tr>
+            <tr><td>۱۸</td><td>۲۰٫۲</td></tr>
+            <tr><td>۲۰</td><td>۲۲٫۶</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-pipe" class="tab-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>قطر (اینچ)</th><th>ضخامت (mm)</th><th>وزن تقریبی (kg/m)</th></tr></thead>
+          <tbody>
+            <tr><td>½</td><td>۲٫۷۷</td><td>۱٫۲۷</td></tr>
+            <tr><td>¾</td><td>۲٫۸۷</td><td>۱٫۶۹</td></tr>
+            <tr><td>۱</td><td>۳٫۳۸</td><td>۲٫۵۰</td></tr>
+            <tr><td>۱¼</td><td>۳٫۵۶</td><td>۳٫۳۹</td></tr>
+            <tr><td>1½</td><td>۳٫۶۸</td><td>۳٫۹۸</td></tr>
+            <tr><td>۲</td><td>۳٫۹۱</td><td>۵٫۴۴</td></tr>
+            <tr><td>۳</td><td>۵٫۴۹</td><td>۱۱٫۳</td></tr>
+            <tr><td>۴</td><td>۶٫۰۲</td><td>۱۶٫۱</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h4 data-i18n="company">رویین‌تن</h4><p data-i18n="footer_desc">تأمین و فروش تخصصی آهن‌آلات</p></div>
+      <div>
+        <h4 data-i18n="footer_quick">دسترسی سریع</h4>
+        <a href="index.html" data-i18n="nav_home">صفحه اصلی</a>
+        <a href="products.html" data-i18n="nav_products">محصولات</a>
+        <a href="weight.html" data-i18n="nav_weight">جدول وزن</a>
+        <a href="shipping.html" data-i18n="nav_shipping">هزینه حمل</a>
+        <a href="contact.html" data-i18n="nav_contact">تماس با ما</a>
+      </div>
+      <div><h4 data-i18n="footer_contact">اطلاعات تماس</h4><p>۰۹۱۲۱۴۵۶۳۱۰</p></div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer_rights">© تمامی حقوق برای رویین‌تن محفوظ است.</div>
+  </footer>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
