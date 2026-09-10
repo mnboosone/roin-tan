@@ -9,6 +9,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+  <!-- Welcome Splash -->
+  <div id="welcome-splash" class="welcome-splash" aria-hidden="false">
+    <div class="splash-inner">
+      <div class="splash-words">
+        <span class="splash-word" id="sw1">رویین‌تن</span>
+        <span class="splash-word" id="sw2">به</span>
+        <span class="splash-word" id="sw3">خوش آمدید</span>
+      </div>
+      <div class="splash-image-wrap">
+        <img src="images/خوش امدید.jpg" alt="خوش آمدید" class="splash-image" id="splashImg">
+      </div>
+      <p class="splash-skip">برای ادامه کلیک کنید</p>
+    </div>
+  </div>
+
   <div class="header-top">
     <div class="header-top-inner">
       <span><i class="fas fa-map-marker-alt" style="margin-left:6px;color:#E85D04"></i> تهران، بازار آهن شادآباد</span>
@@ -212,6 +228,13 @@
     </div>
     <div class="footer-bottom" data-i18n="footer_rights">© تمامی حقوق برای رویین‌تن محفوظ است.</div>
   </footer>
+
+  <!-- Site music -->
+  <audio id="siteMusic" src="web.mp3" loop preload="auto"></audio>
+  <button type="button" id="musicToggle" class="music-toggle" title="قطع / پخش موزیک" aria-label="قطع موزیک">
+    <i class="fas fa-volume-up"></i>
+  </button>
+
   <script src="js/lang.js"></script>
   <script src="js/main.js"></script>
 </body>
