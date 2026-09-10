@@ -8,18 +8,22 @@ function calcProfileWeight() {
   const L = parseFloat(document.getElementById('w-len').value) || 0;
   const W = parseFloat(document.getElementById('w-wid').value) || 0;
   const qty = parseFloat(document.getElementById('w-qty').value) || 1;
-  // Hollow rectangular tube kg per meter (approx)
-  // outer area - inner area, density 7.85 g/cm³
+  // Hollow rectangular tube kg per meter
+  // outer - inner area, density 7.85 g/cm³ → factor 0.785
   let unit = 0;
-  if (t > 0 && L > 0 && W > 0 && L > 2 * t && W > 2 * t) {
-    const outer = L * W;
-    const inner = (L - 2 * t) * (W - 2 * t);
-    unit = ((outer - inner) / 100) * 0.785; // kg per meter
+  if (t > 0 && L > 0 && W > 0) {
+    if (L > 2 * t && W > 2 * t) {
+      const outer = L * W;
+      const inner = (L - 2 * t) * (W - 2 * t);
+      unit = ((outer - inner) / 100) * 0.785;
+    } else {
+      // solid if thickness too large
+      unit = (L * W / 100) * 0.785;
+    }
   }
-  // show as unit weight (kg/m) and total for qty meters default 1m display
   const unitEl = document.getElementById('w-unit-val');
   const totalEl = document.getElementById('w-total-val');
-  if (unitEl) unitEl.textContent = unit.toFixed(2);
+  if (unitEl) unitEl.textContent = unit > 0 ? unit.toFixed(2) : '۰';
   if (totalEl) totalEl.textContent = (unit * qty).toFixed(2);
 }
 
@@ -101,6 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
   populateCities();
   const calcBtn = document.getElementById('w-calc-btn');
   if (calcBtn) calcBtn.addEventListener('click', calcProfileWeight);
+
+  // Live calculation for profile weight inputs
+  ['w-thk', 'w-len', 'w-wid', 'w-qty'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', calcProfileWeight);
+      el.addEventListener('change', calcProfileWeight);
+    }
+  });
+
   const shipBtn = document.getElementById('ship-calc-btn');
   if (shipBtn) shipBtn.addEventListener('click', calcShipping);
   const dest = document.getElementById('ship-dest');
