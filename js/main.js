@@ -1,15 +1,11 @@
-/* رویین‌تن – calculators & UI */
+/* رویین‌تن – calculators, splash & music */
 
-// Profile weight: approx kg/m = (2*(L+W)-4*T)*T*0.00785  for hollow rectangle
-// Simpler rectangular bar approximation used in UI: area mm² * 0.00000785 * length_m... 
-// For hollow profile calculator matching typical tables:
+// ---------- Profile weight calculator ----------
 function calcProfileWeight() {
-  const t = parseFloat(document.getElementById('w-thk').value) || 0;
-  const L = parseFloat(document.getElementById('w-len').value) || 0;
-  const W = parseFloat(document.getElementById('w-wid').value) || 0;
-  const qty = parseFloat(document.getElementById('w-qty').value) || 1;
-  // Hollow rectangular tube kg per meter
-  // outer - inner area, density 7.85 g/cm³ → factor 0.785
+  const t = parseFloat(document.getElementById('w-thk')?.value) || 0;
+  const L = parseFloat(document.getElementById('w-len')?.value) || 0;
+  const W = parseFloat(document.getElementById('w-wid')?.value) || 0;
+  const qty = parseFloat(document.getElementById('w-qty')?.value) || 1;
   let unit = 0;
   if (t > 0 && L > 0 && W > 0) {
     if (L > 2 * t && W > 2 * t) {
@@ -17,57 +13,50 @@ function calcProfileWeight() {
       const inner = (L - 2 * t) * (W - 2 * t);
       unit = ((outer - inner) / 100) * 0.785;
     } else {
-      // solid if thickness too large
       unit = (L * W / 100) * 0.785;
     }
   }
-  const unitEl = document.getElementById('w-unit-val');
-  const totalEl = document.getElementById('w-total-val');
-  if (unitEl) unitEl.textContent = unit > 0 ? unit.toFixed(2) : '۰';
-  if (totalEl) totalEl.textContent = (unit * qty).toFixed(2);
+  const total = unit * qty;
+  const uEl = document.getElementById('w-unit-val');
+  const tEl = document.getElementById('w-total-val');
+  if (uEl) uEl.textContent = unit ? unit.toFixed(2) : '—';
+  if (tEl) tEl.textContent = total ? total.toFixed(2) : '—';
 }
 
-// Shipping rates from Tehran (Excel data)
 const shippingRates = {
-  "اراک": [11000000, 15000000, 17000000],
-  "اردبیل": [10000000, 17000000, 27000000],
-  "ارومیه": [15000000, 19000000, 26000000],
-  "اصفهان": [11000000, 13000000, 16000000],
-  "اهواز": [21000000, 25000000, 28000000],
-  "ایلام": [13000000, 20000000, 30000000],
-  "بجنورد": [22000000, 29000000, 39000000],
-  "بندرعباس": [26000000, 29000000, 35000000],
-  "بوشهر": [14000000, 22000000, 28000000],
-  "بیرجند": [21000000, 27000000, 38000000],
-  "تبریز": [17000000, 24000000, 29000000],
-  "تهران": [6000000, 7000000, 8000000],
-  "خرم‌آباد": [10000000, 16000000, 19000000],
-  "رشت": [13000000, 17500000, 25000000],
-  "زاهدان": [30000000, 38000000, 50000000],
-  "زنجان": [11000000, 19000000, 24000000],
-  "سمنان": [11000000, 14500000, 17000000],
-  "سنندج": [11000000, 16000000, 20000000],
-  "شهرکرد": [9000000, 16000000, 20000000],
-  "شیراز": [14000000, 20000000, 28000000],
-  "قزوین": [10000000, 12000000, 16000000],
-  "قم": [10000000, 12000000, 13000000],
-  "کرج": [5000000, 7000000, 8000000],
-  "کرمان": [22000000, 28000000, 32000000],
-  "کرمانشاه": [13000000, 18000000, 27000000],
-  "گرگان": [19000000, 26000000, 33000000],
-  "مشهد": [22000000, 28000000, 33000000],
-  "همدان": [10000000, 15500000, 19000000],
-  "یزد": [14000000, 20000000, 25000000]
+  'اراک': [9000000, 14000000, 18000000],
+  'اردبیل': [16000000, 22000000, 28000000],
+  'اصفهان': [10000000, 15000000, 20000000],
+  'اهواز': [16000000, 23000000, 30000000],
+  'ایلام': [14000000, 20000000, 26000000],
+  'بوشهر': [18000000, 25000000, 32000000],
+  'تبریز': [15000000, 22000000, 28000000],
+  'تهران': [3000000, 4500000, 6000000],
+  'خرم‌آباد': [12000000, 18000000, 24000000],
+  'رشت': [12000000, 17500000, 25000000],
+  'زاهدان': [30000000, 38000000, 50000000],
+  'زنجان': [11000000, 19000000, 24000000],
+  'سمنان': [11000000, 14500000, 17000000],
+  'سنندج': [11000000, 16000000, 20000000],
+  'شهرکرد': [9000000, 16000000, 20000000],
+  'شیراز': [14000000, 20000000, 28000000],
+  'قزوین': [10000000, 12000000, 16000000],
+  'قم': [10000000, 12000000, 13000000],
+  'کرج': [5000000, 7000000, 8000000],
+  'کرمان': [22000000, 28000000, 32000000],
+  'کرمانشاه': [13000000, 18000000, 27000000],
+  'گرگان': [19000000, 26000000, 33000000],
+  'مشهد': [22000000, 28000000, 33000000],
+  'همدان': [10000000, 15500000, 19000000],
+  'یزد': [14000000, 20000000, 25000000]
 };
 
 function formatToman(n) {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return n.toLocaleString('fa-IR');
 }
 
 function calcShipping() {
-  const sel = document.getElementById('ship-dest');
-  if (!sel) return;
-  const city = sel.value;
+  const city = document.getElementById('ship-dest')?.value;
   const box = document.getElementById('ship-result');
   if (!city || !shippingRates[city]) {
     if (box) box.classList.remove('show');
@@ -88,13 +77,9 @@ function showTab(id, btn, title) {
   if (panel) panel.classList.add('active');
   if (btn) btn.classList.add('active');
 
-  // Change title above the calculator
   const titleEl = document.getElementById('calc-title');
-  if (titleEl && title) {
-    titleEl.textContent = title;
-  }
+  if (titleEl && title) titleEl.textContent = title;
 
-  // Show calculator fields only for profile tab
   const calcFields = document.getElementById('profile-calc-fields');
   const calcNote = document.getElementById('calc-note');
   if (calcFields) {
@@ -120,12 +105,163 @@ function populateCities() {
   });
 }
 
+// ---------- Base path (root vs subfolder) ----------
+function getBasePath() {
+  const path = window.location.pathname;
+  if (path.includes('/products') || path.includes('/weight') ||
+      path.includes('/shipping') || path.includes('/about') ||
+      path.includes('/contact')) {
+    return '../';
+  }
+  return '';
+}
+
+// ---------- Site music (first click anywhere, toggle button) ----------
+function initMusic() {
+  let audio = document.getElementById('siteMusic');
+  const base = getBasePath();
+
+  if (!audio) {
+    audio = document.createElement('audio');
+    audio.id = 'siteMusic';
+    audio.loop = true;
+    audio.preload = 'auto';
+    audio.src = base + 'web.mp3';
+    document.body.appendChild(audio);
+  } else if (!audio.getAttribute('src') || audio.getAttribute('src') === 'web.mp3') {
+    // ensure correct relative path when already on index
+    if (base && !audio.src.includes(base)) {
+      // leave as is for index
+    }
+  }
+
+  let btn = document.getElementById('musicToggle');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'musicToggle';
+    btn.className = 'music-toggle';
+    btn.title = 'قطع / پخش موزیک';
+    btn.setAttribute('aria-label', 'قطع موزیک');
+    btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    document.body.appendChild(btn);
+  }
+
+  let started = sessionStorage.getItem('royintan-music-started') === '1';
+  let muted = sessionStorage.getItem('royintan-music-muted') === '1';
+
+  function updateBtn() {
+    const isMuted = muted || audio.paused;
+    btn.classList.toggle('muted', isMuted);
+    btn.classList.add('visible');
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+    }
+  }
+
+  function tryPlay() {
+    if (muted) return;
+    const p = audio.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => {
+        started = true;
+        sessionStorage.setItem('royintan-music-started', '1');
+        updateBtn();
+      }).catch(() => {});
+    }
+  }
+
+  // First user gesture on the page starts music (browser policy)
+  if (!started) {
+    const onFirst = () => {
+      if (sessionStorage.getItem('royintan-music-started') === '1') return;
+      tryPlay();
+      document.removeEventListener('click', onFirst);
+      document.removeEventListener('touchstart', onFirst);
+    };
+    document.addEventListener('click', onFirst, { once: true });
+    document.addEventListener('touchstart', onFirst, { once: true });
+  } else if (!muted) {
+    // Returning within same session – try resume
+    tryPlay();
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (audio.paused) {
+      muted = false;
+      sessionStorage.setItem('royintan-music-muted', '0');
+      tryPlay();
+    } else {
+      audio.pause();
+      muted = true;
+      sessionStorage.setItem('royintan-music-muted', '1');
+    }
+    updateBtn();
+  });
+
+  // Show button after a short delay (or immediately if music already known)
+  setTimeout(() => btn.classList.add('visible'), started ? 100 : 800);
+  updateBtn();
+}
+
+// ---------- Welcome splash (home page only) ----------
+function initSplash() {
+  const splash = document.getElementById('welcome-splash');
+  if (!splash) return;
+
+  const w1 = document.getElementById('sw1');
+  const w2 = document.getElementById('sw2');
+  const w3 = document.getElementById('sw3');
+  const imgWrap = document.querySelector('.splash-image-wrap');
+  const img = document.getElementById('splashImg');
+  const skip = document.querySelector('.splash-skip');
+
+  // Prevent scroll while splash is open
+  document.body.style.overflow = 'hidden';
+
+  const showWord = (el, delay) => {
+    setTimeout(() => {
+      if (el) {
+        el.classList.add('show');
+        setTimeout(() => el.classList.add('pulse'), 400);
+      }
+    }, delay);
+  };
+
+  // Sequence: رویین‌تن → به → خوش آمدید → image
+  showWord(w1, 300);
+  showWord(w2, 1100);
+  showWord(w3, 1900);
+
+  setTimeout(() => {
+    if (imgWrap) imgWrap.classList.add('show');
+    if (img) img.classList.add('rock');
+    if (skip) skip.classList.add('show');
+  }, 2700);
+
+  function closeSplash() {
+    splash.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      splash.remove();
+    }, 750);
+  }
+
+  // Auto close after ~5.5s from start, or on click
+  const autoTimer = setTimeout(closeSplash, 5500);
+  splash.addEventListener('click', () => {
+    clearTimeout(autoTimer);
+    closeSplash();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   populateCities();
   const calcBtn = document.getElementById('w-calc-btn');
   if (calcBtn) calcBtn.addEventListener('click', calcProfileWeight);
 
-  // Live calculation for profile weight inputs
   ['w-thk', 'w-len', 'w-wid', 'w-qty'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -138,4 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (shipBtn) shipBtn.addEventListener('click', calcShipping);
   const dest = document.getElementById('ship-dest');
   if (dest) dest.addEventListener('change', calcShipping);
+
+  initSplash();
+  initMusic();
 });
