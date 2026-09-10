@@ -81,12 +81,31 @@ function calcShipping() {
   box.classList.add('show');
 }
 
-function showTab(id, btn) {
+function showTab(id, btn, title) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   const panel = document.getElementById(id);
   if (panel) panel.classList.add('active');
   if (btn) btn.classList.add('active');
+
+  // Change title above the calculator
+  const titleEl = document.getElementById('calc-title');
+  if (titleEl && title) {
+    titleEl.textContent = title;
+  }
+
+  // Show calculator fields only for profile tab
+  const calcFields = document.getElementById('profile-calc-fields');
+  const calcNote = document.getElementById('calc-note');
+  if (calcFields) {
+    if (id === 'tab-profile') {
+      calcFields.style.display = '';
+      if (calcNote) calcNote.style.display = '';
+    } else {
+      calcFields.style.display = 'none';
+      if (calcNote) calcNote.style.display = 'none';
+    }
+  }
 }
 
 function populateCities() {
