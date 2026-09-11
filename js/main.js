@@ -116,7 +116,7 @@ function getBasePath() {
   return '';
 }
 
-// ---------- Site music (first click anywhere, toggle button) ----------
+// ---------- Site music (continuous across pages, loop until user stops) ----------
 function initMusic() {
   let audio = document.getElementById('siteMusic');
   const base = getBasePath();
@@ -128,10 +128,14 @@ function initMusic() {
     audio.preload = 'auto';
     audio.src = base + 'web.mp3';
     document.body.appendChild(audio);
-  } else if (!audio.getAttribute('src') || audio.getAttribute('src') === 'web.mp3') {
-    // ensure correct relative path when already on index
-    if (base && !audio.src.includes(base)) {
-      // leave as is for index
+  } else {
+    audio.loop = true;
+    audio.preload = 'auto';
+    const needSrc = !audio.getAttribute('src') || audio.getAttribute('src') === 'web.mp3';
+    if (needSrc && base) {
+      audio.src = base + 'web.mp3';
+    } else if (!audio.getAttribute('src')) {
+      audio.src = 'web.mp3';
     }
   }
 
@@ -150,6 +154,25 @@ function initMusic() {
   let started = sessionStorage.getItem('royintan-music-started') === '1';
   let muted = sessionStorage.getItem('royintan-music-muted') === '1';
 
+  function saveMusicState() {
+    try {
+      sessionStorage.setItem('royintan-music-started', started ? '1' : '0');
+      sessionStorage.setItem('royintan-music-muted', muted ? '1' : '0');
+      if (!audio.paused && !isNaN(audio.currentTime)) {
+        sessionStorage.setItem('royintan-music-time', String(audio.currentTime));
+      }
+    } catch (e) {}
+  }
+
+  function restoreTime() {
+    const saved = parseFloat(sessionStorage.getItem('royintan-music-time') || '0');
+    if (saved > 0.3 && !isNaN(saved)) {
+      try {
+        audio.currentTime = saved;
+      } catch (e) {}
+    }
+  }
+
   function updateBtn() {
     const isMuted = muted || audio.paused;
     btn.classList.toggle('muted', isMuted);
@@ -162,33 +185,59 @@ function initMusic() {
 
   function tryPlay() {
     if (muted) return;
+    restoreTime();
     const p = audio.play();
     if (p && typeof p.then === 'function') {
       p.then(() => {
         started = true;
         sessionStorage.setItem('royintan-music-started', '1');
         updateBtn();
+        saveMusicState();
       }).catch(() => {});
     }
   }
 
-  // First user gesture on the page starts music (browser policy)
+  // Persist position often so page changes keep the same point
+  setInterval(saveMusicState, 500);
+  window.addEventListener('beforeunload', saveMusicState);
+  window.addEventListener('pagehide', saveMusicState);
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.paused) saveMusicState();
+  });
+  audio.addEventListener('play', () => {
+    started = true;
+    muted = false;
+    sessionStorage.setItem('royintan-music-started', '1');
+    sessionStorage.setItem('royintan-music-muted', '0');
+    updateBtn();
+  });
+  audio.addEventListener('pause', saveMusicState);
+
+  // First user gesture starts music; later pages resume from saved time
   if (!started) {
     const onFirst = () => {
-      if (sessionStorage.getItem('royintan-music-started') === '1') return;
+      if (sessionStorage.getItem('royintan-music-started') === '1') {
+        if (!muted) tryPlay();
+        return;
+      }
       tryPlay();
-      document.removeEventListener('click', onFirst);
-      document.removeEventListener('touchstart', onFirst);
     };
     document.addEventListener('click', onFirst, { once: true });
     document.addEventListener('touchstart', onFirst, { once: true });
   } else if (!muted) {
-    // Returning within same session – try resume
     tryPlay();
   }
 
+  // Any further click can resume if browser blocked autoplay after navigation
+  document.body.addEventListener('click', () => {
+    if (started && !muted && audio.paused) {
+      tryPlay();
+    }
+  }, { passive: true });
+
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
+    e.preventDefault();
     if (audio.paused) {
       muted = false;
       sessionStorage.setItem('royintan-music-muted', '0');
@@ -197,11 +246,11 @@ function initMusic() {
       audio.pause();
       muted = true;
       sessionStorage.setItem('royintan-music-muted', '1');
+      saveMusicState();
     }
     updateBtn();
   });
 
-  // Show button after a short delay (or immediately if music already known)
   setTimeout(() => btn.classList.add('visible'), started ? 100 : 800);
   updateBtn();
 }
